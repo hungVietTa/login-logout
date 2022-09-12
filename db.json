@@ -132,6 +132,12 @@
       "email": "amumu@gmail.com",
       "password": "123",
       "id": 22
+    },
+    {
+      "name": "diana",
+      "email": "diana@gmail.com",
+      "password": "123",
+      "id": 23
     }
   ]
 }

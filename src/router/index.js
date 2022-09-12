@@ -14,7 +14,7 @@ const routes = [
   },
   {
     path: '/register',
-    name: 'resgister',
+    name: 'register',
     component: () => import('../views/RegisterView.vue')
   }
 ]
@@ -24,9 +24,5 @@ const router = createRouter({
   routes
 })
 
-// router.beforeEach((to,from,next)=>{
-//   if(to.path === '/login' && store.state.loginState)
-//     next('/')
-// })
 
 export default router
