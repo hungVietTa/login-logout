@@ -1,25 +1,24 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link :to="'/login'">Log In</router-link> |
-    <router-link :to="'/register'">Register</router-link> 
-    <router-link v-if="state" @click="'/login'"  >| Logout</router-link>
+    <router-link to="/"><span>Home</span></router-link>
+    <router-link v-if="!$store.state.loginState" to="/login"> | <span>Log In</span></router-link>
+    <router-link v-if="!$store.state.loginState" to="/register"> | <span>Register</span></router-link> 
+    <router-link v-if="$store.state.loginState" @click="logout" to="/" > | <span>Logout</span></router-link>
   </nav>
-  <router-view :logState="state" @loginStatus="status"/>
+  <router-view/>
 </template>
 <script>
+import { mapActions,mapMutations } from'vuex'
+
   export default {
     name:"App",
-    data() {
-      return {
-        state:false
-      }
-    },
     methods: {
-      status:function(e){
-        this.state=e
-        console.log(3)
-      }
+      ...mapActions(['logout']),
+      ...mapMutations(['ToggleLoginState'])
+    },
+    mounted:function(){
+      if(localStorage.getItem("user"))
+        this.ToggleLoginState()
     }
   }
 </script>
@@ -31,7 +30,6 @@
   text-align: center;
   color: #2c3e50;
 }
-
 nav {
   padding: 30px;
 }
@@ -39,8 +37,11 @@ nav {
 nav a {
   font-weight: bold;
   color: #2c3e50;
+  text-decoration: none;
 }
-
+nav a span{
+  text-decoration: underline;
+}
 nav a.router-link-exact-active {
   color: #42b983;
 }

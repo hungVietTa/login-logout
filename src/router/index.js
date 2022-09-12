@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-
+// import { store } from '../main.js'
 const routes = [
   {
     path: '/',
@@ -23,5 +23,10 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+// router.beforeEach((to,from,next)=>{
+//   if(to.path === '/login' && store.state.loginState)
+//     next('/')
+// })
 
 export default router

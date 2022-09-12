@@ -1,7 +1,7 @@
 <template>
   <div class="register">
-    <h1>Register</h1>
-    <form @submit.prevent="submit">
+    <h1>{{$store.state.loginState}}</h1>
+    <form @submit.prevent="register(form)">
       <label for="name">Name: </label><input type="text" v-model="form.name"><br />
       <label for="name">Email: </label><input type="email" v-model="form.email"><br />
       <label for="name">Password: </label><input type="password" v-model="form.password"><br />
@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-
+import { mapActions,mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -20,26 +20,14 @@ export default {
         email: '',
         password: '',
       },
-      confirmPassword: '',
-      state:this.logState,
+      confirmPassword: ''
     }
   },
-  props:["logState"],
-  methods: {
-    submit() {
-      fetch("http://localhost:3000/user", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(this.form)
-      }).then(res => {
-        console.log("Request complete! response:", res);
-      });
-      this.$router.push('/')
-    }
+  computed:{
+    ...mapState(['loginState'])
   },
-  mounted:function() {
-    if(this.state)
-      this.$router.push('/')
+  methods:{
+    ...mapActions(['register'])
   }
 }
 </script>
